@@ -19,10 +19,10 @@ RUN go build .
 
 # Adjust configuration files
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml
-RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/go/elrond-config-devnet/config.toml && \
-    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/go/elrond-config-devnet/prefs.toml && \
-    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/go/elrond-config-mainnet/config.toml && \
-    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/go/elrond-config-mainnet/prefs.toml
+RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-devnet/config.toml && \
+    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/elrond-config-devnet/prefs.toml && \
+    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-mainnet/config.toml && \
+    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/elrond-config-mainnet/prefs.toml
 
 # ===== SECOND STAGE ======
 FROM ubuntu:20.04
