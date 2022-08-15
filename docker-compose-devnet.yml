@@ -2,7 +2,7 @@ version: '3'
 
 services:
   elrond-rosetta-observer-devnet:
-    image: elrond-rosetta-observer-devnet:latest
+    image: elrond-rosetta-observer:latest
     container_name: elrond-rosetta-observer-devnet
     ports:
       - "${PORT_OBSERVER}:8080"
