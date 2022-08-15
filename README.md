@@ -41,14 +41,12 @@ docker image build --no-cache . -t elrond-rosetta:latest -f ./Rosetta.dockerfile
 Run on **devnet**:
 
 ```
-cd $HOME/rosetta/docker
-docker compose --file ./docker-compose-devnet-experimental.yml --env-file ./devnet.env --project-name elrond-devnet-exp up --detach
+docker compose --file ./docker-compose-devnet.yml --env-file ./devnet.env --project-name elrond-devnet up --detach
 ```
 
 Run on **mainnet**:
 
 ```
-cd $HOME/rosetta/docker
 docker compose --file ./docker-compose-mainnet.yml --env-file ./mainnet.env --project-name elrond-mainnet up --detach
 ```
 
@@ -68,18 +66,11 @@ docker logs elrond-rosetta-online-mainnet -f
 docker logs elrond-rosetta-offline-mainnet -f
 ```
 
-By inspecting the files in the `logs` folder:
-
-```
-~/rosetta-workdir/(devnet|mainnet)/node-0/logs
-```
-
 ### Update the Docker setup
 
-Update the repository (repositories):
+Update the local clone of this repository:
 
 ```
-cd $HOME/rosetta
 git pull origin
 ```
 
