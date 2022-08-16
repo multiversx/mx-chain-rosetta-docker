@@ -4,16 +4,15 @@ Docker setup for Rosetta.
 
 These files are kept separately from Rosetta's [source code](https://github.com/ElrondNetwork/rosetta), so that we can easily reference tagged versions of Rosetta (and Node) in Dockerfiles.
 
-The Docker setup takes the shape of two Docker images (Elrond Rosetta and Elrond Observer), plus a Docker Compose definition to orchestrate the `1 + 1 + 1 = 3` containers: 
+The Docker setup takes the shape of one Docker image (holding both `rosetta` and the `node`), plus a Docker Compose definition to orchestrate the `1 + 1 + 1 = 3` containers: 
 
- - one Elrond Rosetta instance in **online mode**
- - one Elrond Rosetta instance in **offline mode**
- - one Elrond observer for a chosen regular shard
+ - one _rosetta_ instance in **online mode**
+ - one _rosetta_ instance in **offline mode**
+ - one _node_, started as observer for a chosen actual shard
   
 This `1 + 1 + 1 = 3` setup is usually referred to as an **Elrond Rosetta Squad**.
 
 Currently, the Rosetta implementation only supports the native currency (EGLD), while custom currencies ([ESDTs](https://docs.elrond.com/developers/esdt-tokens)) will be supported in the near future. At that point, the Docker setup would contain `1 + 1 + 1 + 1 = 4` containers - the additional container being an Elrond observer for the _metachain_ (necessary for some pieces of information such as ESDT properties).
-
 
 ## Give permissions to the current user
 
@@ -27,13 +26,10 @@ sudo usermod -aG docker $USER
 
 After running the command, you may need to log out from the user session and log back in.
 
-## Build the images
-
-Below, we build all the images (including for  _devnet_).
+## Build the Docker image
 
 ```
-docker image build --no-cache . -t elrond-rosetta-observer:latest -f ./Observer.dockerfile
-docker image build --no-cache . -t elrond-rosetta:latest -f ./Rosetta.dockerfile
+docker image build --no-cache . -t elrond-rosetta:latest -f ./Dockerfile
 ```
 
 ### Run rosetta

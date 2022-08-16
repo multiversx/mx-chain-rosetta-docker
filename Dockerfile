@@ -7,6 +7,11 @@ RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=rc-
 RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=rc-2022-july --depth=1
 WORKDIR /go
 RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=rc/2022-july --depth=1
+RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=main --depth=1
+
+# Build rosetta
+WORKDIR /go/rosetta/cmd/rosetta
+RUN go build
 
 # Build node
 WORKDIR /go/elrond-go/cmd/node
@@ -27,13 +32,14 @@ RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/r
 # ===== SECOND STAGE ======
 FROM ubuntu:20.04
 
+COPY --from=builder "/go/rosetta/cmd/rosetta" "/elrond/"
 COPY --from=builder "/go/elrond-go/cmd/node/node" "/elrond/"
 COPY --from=builder "/go/elrond-go/cmd/keygenerator/keygenerator" "/elrond/"
 COPY --from=builder "/lib/libwasmer_linux_amd64.so" "/lib/libwasmer_linux_amd64.so"
 COPY --from=builder "/repos/elrond-config-devnet" "/elrond/config-devnet/"
 COPY --from=builder "/repos/elrond-config-mainnet" "/elrond/config-mainnet/"
-COPY --from=builder "/repos/rosetta-docker-scripts/entrypoint_observer.sh" "/elrond/"
+COPY --from=builder "/repos/rosetta-docker-scripts/entrypoint.sh" "/elrond/"
 
 EXPOSE 8080
 WORKDIR /elrond
-ENTRYPOINT ["/elrond/entrypoint_observer.sh", "--log-save", "--log-level=*:DEBUG", "--log-logger-name", "--rest-api-interface=0.0.0.0:8080", "--working-directory=/data", "--validator-key-pem-file=/data/observerKey.pem"]
+ENTRYPOINT ["/elrond/entrypoint.sh"]
