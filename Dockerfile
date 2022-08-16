@@ -2,12 +2,15 @@ FROM golang:1.17.6 as builder
 
 # Clone repositories
 WORKDIR /repos
-RUN git clone https://github.com/ElrondNetwork/rosetta-docker-scripts.git --branch=rc/v1 --depth=1
+RUN git clone https://github.com/ElrondNetwork/rosetta-docker-scripts.git --branch=v0.1.0 --depth=1
+# TODO: use tag after release
 RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=rc-2022-july --depth=1
+# TODO: use tag after release
 RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=rc-2022-july --depth=1
 WORKDIR /go
-RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=rc/2022-july --depth=1
-RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=main --depth=1
+# TODO: use tag after release
+RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=rc/2022-july --single-branch
+RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=v0.1.9 --depth=1
 
 # Build rosetta
 WORKDIR /go/rosetta/cmd/rosetta
@@ -15,7 +18,7 @@ RUN go build
 
 # Build node
 WORKDIR /go/elrond-go/cmd/node
-RUN go build -i -v -ldflags="-X main.appVersion=rc/2022-july"
+RUN go build -i -v -ldflags="-X main.appVersion=$(git describe --tags --long --dirty --always)"
 RUN cp /go/pkg/mod/github.com/!elrond!network/arwen-wasm-vm@$(cat /go/elrond-go/go.mod | grep arwen-wasm-vm | sed 's/.* //' | tail -n 1)/wasmer/libwasmer_linux_amd64.so /lib/libwasmer_linux_amd64.so
 
 # Build key generator
