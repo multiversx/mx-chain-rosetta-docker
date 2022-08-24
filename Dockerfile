@@ -9,8 +9,8 @@ RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=rc-
 RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=rc-2022-july --depth=1
 WORKDIR /go
 # TODO: use tag after release
-RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=historical-balances-08-12 --single-branch
-RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=historical-balances-01 --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=recreate-trie-from-epoch-08-22 --single-branch
+RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=historical-08-24 --depth=1
 
 # Build rosetta
 WORKDIR /go/rosetta/cmd/rosetta
@@ -27,9 +27,9 @@ RUN go build .
 
 # Adjust configuration files
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml
-RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-devnet/config.toml && \
+RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-devnet/config.toml --num-epochs-to-keep=720 --api-simultaneous-requests=512 && \
     python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/elrond-config-devnet/prefs.toml && \
-    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-mainnet/config.toml && \
+    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-mainnet/config.toml --num-epochs-to-keep=128 --api-simultaneous-requests=512 && \
     python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/elrond-config-mainnet/prefs.toml
 
 # ===== SECOND STAGE ======
