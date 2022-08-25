@@ -2,6 +2,8 @@ version: '3'
 
 services:
   elrond-rosetta-observer-devnet:
+    ulimits:
+      nproc: 65535
     image: elrond-rosetta:latest
     container_name: elrond-rosetta-observer-devnet
     ports:
