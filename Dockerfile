@@ -2,15 +2,15 @@ FROM golang:1.17.6 as builder
 
 # Clone repositories
 WORKDIR /repos
-RUN git clone https://github.com/ElrondNetwork/rosetta-docker-scripts.git --branch=historical-balances --depth=1
+RUN git clone https://github.com/ElrondNetwork/rosetta-docker-scripts.git --branch=v0.2.0 --depth=1
 # TODO: use tag after release
 RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=rc-2022-july --depth=1
 # TODO: use tag after release
 RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=rc-2022-july --depth=1
 WORKDIR /go
 # TODO: use tag after release
-RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=recreate-trie-from-epoch-08-22 --single-branch
-RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=historical-08-24 --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=rc-2022-july --single-branch
+RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=v0.2.2 --depth=1
 
 # Build rosetta
 WORKDIR /go/rosetta/cmd/rosetta
