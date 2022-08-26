@@ -2,6 +2,8 @@ version: '3'
 
 services:
   elrond-rosetta-observer-devnet:
+    ulimits:
+      nproc: 65535
     image: elrond-rosetta:latest
     container_name: elrond-rosetta-observer-devnet
     ports:
@@ -9,7 +11,7 @@ services:
       - "${PORT_P2P}:37373"
     volumes:
       - ${DATA_FOLDER_OBSERVER}:/data
-    command: start-observer network=devnet --destination-shard-as-observer=${OBSERVED_SHARD} --log-save --log-level=*:DEBUG --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
+    command: start-observer network=devnet --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=*:DEBUG --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
     networks:
       elrond-rosetta-devnet:
         ipv4_address: 11.0.0.10
@@ -21,7 +23,7 @@ services:
       - "${PORT_ROSETTA_ONLINE}:8080"
     volumes:
       - ${DATA_FOLDER_ROSETTA_ONLINE}:/data
-    command: start-rosetta --port 8080 --observer-http-url=http://11.0.0.10:8080 --observer-pubkey=${OBSERVER_PUBKEY} --chain-id=D --num-shards=3 --observer-actual-shard=${OBSERVED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --native-currency=XeGLD
+    command: start-rosetta --port 8080 --observer-http-url=http://11.0.0.10:8080 --observer-pubkey=${OBSERVER_PUBKEY} --chain-id=D --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --native-currency=XeGLD
     networks:
       elrond-rosetta-devnet:
         ipv4_address: 11.0.0.21
@@ -33,7 +35,7 @@ services:
       - "${PORT_ROSETTA_OFFLINE}:8080"
     volumes:
       - ${DATA_FOLDER_ROSETTA_OFFLINE}:/data
-    command: start-rosetta --port 8080 --offline --observer-http-url=http://nowhere.localhost.local --chain-id=D --num-shards=3 --observer-actual-shard=${OBSERVED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --native-currency=XeGLD
+    command: start-rosetta --port 8080 --offline --observer-http-url=http://nowhere.localhost.local --chain-id=D --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --native-currency=XeGLD
     networks:
       elrond-rosetta-devnet:
         ipv4_address: 11.0.0.22
