@@ -11,7 +11,7 @@ services:
       - "${PORT_P2P}:37373"
     volumes:
       - ${DATA_FOLDER_OBSERVER}:/data
-    command: start-observer network=devnet --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=*:DEBUG --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
+    command: start-observer network=devnet --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=*:DEBUG --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem --serialize-snapshots --disable-consensus-watchdog
     networks:
       elrond-rosetta-devnet:
         ipv4_address: 11.0.0.10
