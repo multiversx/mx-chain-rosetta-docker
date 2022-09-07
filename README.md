@@ -53,17 +53,17 @@ docker compose --file ./docker-compose-mainnet.yml --env-file ./mainnet.env --pr
 For devnet:
 
 ```
-docker logs elrond-rosetta-observer-devnet -f
-docker logs elrond-rosetta-online-devnet -f
-docker logs elrond-rosetta-offline-devnet -f
+docker logs elrond-rosetta-observer-devnet --tail 100 --follow
+docker logs elrond-rosetta-online-devnet --tail 100 --follow
+docker logs elrond-rosetta-offline-devnet --tail 100 --follow
 ```
 
 For mainnet:
 
 ```
-docker logs elrond-rosetta-observer-mainnet -f
-docker logs elrond-rosetta-online-mainnet -f
-docker logs elrond-rosetta-offline-mainnet -f
+docker logs elrond-rosetta-observer-mainnet --tail 100 --follow
+docker logs elrond-rosetta-online-mainnet --tail 100 --follow
+docker logs elrond-rosetta-offline-mainnet --tail 100 --follow
 ```
 
 ## Update the Docker setup
