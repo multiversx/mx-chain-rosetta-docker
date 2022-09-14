@@ -11,7 +11,7 @@ services:
       - "${PORT_P2P}:37373"
     volumes:
       - ${DATA_FOLDER_OBSERVER}:/data
-    command: start-observer network=mainnet --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=*:DEBUG --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
+    command: start-observer network=mainnet --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=${LOG_LEVEL} --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
     networks:
       elrond-rosetta-mainnet:
         ipv4_address: 10.0.0.10
