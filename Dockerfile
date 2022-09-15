@@ -27,9 +27,9 @@ RUN go build .
 
 # Adjust configuration files
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml
-RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-devnet/config.toml --num-epochs-to-keep=1024 --api-simultaneous-requests=512 && \
+RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-devnet/config.toml --num-epochs-to-keep=1024 --api-simultaneous-requests=16384 && \
     python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/elrond-config-devnet/prefs.toml && \
-    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-mainnet/config.toml --num-epochs-to-keep=128 --api-simultaneous-requests=512 && \
+    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-mainnet/config.toml --num-epochs-to-keep=128 --api-simultaneous-requests=16384 && \
     python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/elrond-config-mainnet/prefs.toml
 
 # ===== SECOND STAGE ======
