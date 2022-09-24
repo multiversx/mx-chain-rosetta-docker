@@ -10,7 +10,7 @@ RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=v1
 WORKDIR /go
 # TODO: use tag after release
 RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=v1.3.42 --single-branch
-RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=v0.2.5 --depth=1
+RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=tx-status-23 --depth=1
 
 # Build rosetta
 WORKDIR /go/rosetta/cmd/rosetta
