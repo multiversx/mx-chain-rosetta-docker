@@ -9,8 +9,8 @@ RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=D1.
 RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=v1.3.42.0 --depth=1
 WORKDIR /go
 # TODO: use tag after release
-RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=v1.3.42 --single-branch
-RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=v0.2.6 --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=EN-13187-oldest-epoch-metric-plus-epoch-start --single-branch
+RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=update-lib-refs --depth=1
 
 # Build rosetta
 WORKDIR /go/rosetta/cmd/rosetta
