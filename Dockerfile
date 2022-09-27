@@ -3,13 +3,11 @@ FROM golang:1.17.6 as builder
 # Clone repositories
 WORKDIR /repos
 RUN git clone https://github.com/ElrondNetwork/rosetta-docker-scripts.git --branch=v0.2.1 --depth=1
-# TODO: use tag after release
-RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=rosetta --depth=1
-# TODO: use tag after release
-RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=rosetta --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=D1.3.42.0-rosetta1 --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=v1.3.42.0-rosetta1 --depth=1
+
 WORKDIR /go
-# TODO: use tag after release
-RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=hotfix-accounts-trie-remover --single-branch
+RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=v1.3.42-rosetta1 --depth=1
 RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=v0.2.7 --depth=1
 
 # Build rosetta
