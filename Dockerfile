@@ -2,15 +2,15 @@ FROM golang:1.17.6 as builder
 
 # Clone repositories
 WORKDIR /repos
-RUN git clone https://github.com/ElrondNetwork/rosetta-docker-scripts.git --branch=v0.2.0 --depth=1
+RUN git clone https://github.com/ElrondNetwork/rosetta-docker-scripts.git --branch=v0.2.1 --depth=1
 # TODO: use tag after release
 RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=rosetta --depth=1
 # TODO: use tag after release
 RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=rosetta --depth=1
 WORKDIR /go
 # TODO: use tag after release
-RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=feat/rosetta --single-branch
-RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=update-lib-refs --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=hotfix-accounts-trie-remover --single-branch
+RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=v0.2.7 --depth=1
 
 # Build rosetta
 WORKDIR /go/rosetta/cmd/rosetta
@@ -27,9 +27,9 @@ RUN go build .
 
 # Adjust configuration files
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml
-RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-devnet/config.toml --num-epochs-to-keep=1024 --api-simultaneous-requests=16384 && \
+RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-devnet/config.toml --api-simultaneous-requests=16384 && \
     python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/elrond-config-devnet/prefs.toml && \
-    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-mainnet/config.toml --num-epochs-to-keep=128 --api-simultaneous-requests=16384 && \
+    python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/elrond-config-mainnet/config.toml --api-simultaneous-requests=16384 && \
     python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/elrond-config-mainnet/prefs.toml
 
 # ===== SECOND STAGE ======
