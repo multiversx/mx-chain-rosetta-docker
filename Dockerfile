@@ -3,11 +3,11 @@ FROM golang:1.17.6 as builder
 # Clone repositories
 WORKDIR /repos
 RUN git clone https://github.com/ElrondNetwork/rosetta-docker-scripts.git --branch=v0.2.1 --depth=1
-RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=D1.3.42.0-rosetta1 --depth=1
-RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=v1.3.42.0-rosetta1 --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-config-devnet --branch=D1.3.44.0-rosetta3 --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=v1.3.44.0-rosetta1 --depth=1
 
 WORKDIR /go
-RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=v1.3.43-rosetta1 --depth=1
+RUN git clone https://github.com/ElrondNetwork/elrond-go.git --branch=v1.3.44-rosetta1 --depth=1
 RUN git clone https://github.com/ElrondNetwork/rosetta.git --branch=v0.2.8 --depth=1
 
 # Build rosetta
