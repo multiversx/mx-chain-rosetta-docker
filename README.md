@@ -31,7 +31,7 @@ After running the command, you may need to log out from the user session and log
 ## Build the Docker image
 
 ```
-docker image build --no-cache . -t elrond-rosetta:latest -f ./Dockerfile
+docker image build --no-cache . -t multiversx-rosetta:latest -f ./Dockerfile
 ```
 
 ## Run the containers
@@ -39,13 +39,13 @@ docker image build --no-cache . -t elrond-rosetta:latest -f ./Dockerfile
 Run on **devnet**:
 
 ```
-docker compose --file ./docker-compose-devnet.yml --env-file ./devnet.env --project-name elrond-devnet up --detach
+docker compose --file ./docker-compose-devnet.yml --env-file ./devnet.env --project-name multiversx-devnet up --detach
 ```
 
 Run on **mainnet**:
 
 ```
-docker compose --file ./docker-compose-mainnet.yml --env-file ./mainnet.env --project-name elrond-mainnet up --detach
+docker compose --file ./docker-compose-mainnet.yml --env-file ./mainnet.env --project-name multiversx-mainnet up --detach
 ```
 
 ## Inspect logs
@@ -53,17 +53,17 @@ docker compose --file ./docker-compose-mainnet.yml --env-file ./mainnet.env --pr
 For devnet:
 
 ```
-docker logs elrond-rosetta-observer-devnet --tail 100 --follow
-docker logs elrond-rosetta-online-devnet --tail 100 --follow
-docker logs elrond-rosetta-offline-devnet --tail 100 --follow
+docker logs multiversx-rosetta-observer-devnet --tail 100 --follow
+docker logs multiversx-rosetta-online-devnet --tail 100 --follow
+docker logs multiversx-rosetta-offline-devnet --tail 100 --follow
 ```
 
 For mainnet:
 
 ```
-docker logs elrond-rosetta-observer-mainnet --tail 100 --follow
-docker logs elrond-rosetta-online-mainnet --tail 100 --follow
-docker logs elrond-rosetta-offline-mainnet --tail 100 --follow
+docker logs multiversx-rosetta-observer-mainnet --tail 100 --follow
+docker logs multiversx-rosetta-online-mainnet --tail 100 --follow
+docker logs multiversx-rosetta-offline-mainnet --tail 100 --follow
 ```
 
 ## Update the Docker setup
@@ -77,23 +77,23 @@ git pull origin
 Stop the running containers (devnet):
 
 ```
-docker stop elrond-rosetta-observer-devnet
-docker stop elrond-rosetta-online-devnet
-docker stop elrond-rosetta-offline-devnet
+docker stop multiversx-rosetta-observer-devnet
+docker stop multiversx-rosetta-online-devnet
+docker stop multiversx-rosetta-offline-devnet
 
 # Or simply:
-docker compose --project-name elrond-devnet down
+docker compose --project-name multiversx-devnet down
 ```
 
 Stop the running containers (mainnet):
 
 ```
-docker stop elrond-rosetta-observer-mainnet
-docker stop elrond-rosetta-online-mainnet
-docker stop elrond-rosetta-offline-mainnet
+docker stop multiversx-rosetta-observer-mainnet
+docker stop multiversx-rosetta-online-mainnet
+docker stop multiversx-rosetta-offline-mainnet
 
 # Or simply:
-docker compose --project-name elrond-mainnet down
+docker compose --project-name multiversx-mainnet down
 ```
 
 Re-build the images as described above, then run the containers again.
