@@ -4,6 +4,7 @@ services:
   elrond-rosetta-observer-mainnet:
     ulimits:
       nproc: 65535
+    user: ${DOCKER_USER}
     image: elrond-rosetta:latest
     container_name: elrond-rosetta-observer-mainnet
     ports:
@@ -11,12 +12,13 @@ services:
       - "${PORT_P2P}:37373"
     volumes:
       - ${DATA_FOLDER_OBSERVER}:/data
-    command: start-observer network=mainnet --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=${LOG_LEVEL} --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
+    command: start-observer network=mainnet --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --display-name=${OBSERVER_DISPLAY_NAME} --log-save --log-level=${LOG_LEVEL} --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
     networks:
       elrond-rosetta-mainnet:
         ipv4_address: 10.0.0.10
 
   elrond-rosetta-online-mainnet:
+    user: ${DOCKER_USER}
     image: elrond-rosetta:latest
     container_name: elrond-rosetta-online-mainnet
     ports:
@@ -29,6 +31,7 @@ services:
         ipv4_address: 10.0.0.21
 
   elrond-rosetta-offline-mainnet:
+    user: ${DOCKER_USER}
     image: elrond-rosetta:latest
     container_name: elrond-rosetta-offline-mainnet
     ports:
