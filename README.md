@@ -10,9 +10,9 @@ The Docker setup takes the shape of one Docker image (holding both `rosetta` and
  - one _rosetta_ instance in **offline mode**
  - one _node_, started as observer for a chosen actual shard
   
-This `1 + 1 + 1 = 3` setup is usually referred to as an **Elrond Rosetta Squad**.
+This `1 + 1 + 1 = 3` setup is usually referred to as an **MultiversX Rosetta Squad**.
 
-Currently, the Rosetta implementation only supports the native currency (EGLD), while custom currencies ([ESDTs](https://docs.elrond.com/developers/esdt-tokens)) will be supported in the near future. At that point, the Docker setup would contain `1 + 1 + 1 + 1 = 4` containers - the additional container being an Elrond observer for the _metachain_ (necessary for some pieces of information such as ESDT properties).
+Currently, the Rosetta implementation only supports the native currency (EGLD), while custom currencies ([ESDTs](https://docs.elrond.com/developers/esdt-tokens)) will be supported in the near future. At that point, the Docker setup would contain `1 + 1 + 1 + 1 = 4` containers - the additional container being an observer for the _metachain_ (necessary for some pieces of information such as ESDT properties).
 
 ## Prerequisites
 
