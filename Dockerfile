@@ -33,14 +33,14 @@ RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/r
 # ===== SECOND STAGE ======
 FROM ubuntu:20.04
 
-COPY --from=builder "/go/rosetta/cmd/rosetta" "/elrond/"
-COPY --from=builder "/go/elrond-go/cmd/node/node" "/elrond/"
-COPY --from=builder "/go/elrond-go/cmd/keygenerator/keygenerator" "/elrond/"
+COPY --from=builder "/go/rosetta/cmd/rosetta" "/multiversx/"
+COPY --from=builder "/go/elrond-go/cmd/node/node" "/multiversx/"
+COPY --from=builder "/go/elrond-go/cmd/keygenerator/keygenerator" "/multiversx/"
 COPY --from=builder "/lib/libwasmer_linux_amd64.so" "/lib/libwasmer_linux_amd64.so"
-COPY --from=builder "/repos/elrond-config-devnet" "/elrond/config-devnet/"
-COPY --from=builder "/repos/elrond-config-mainnet" "/elrond/config-mainnet/"
-COPY --from=builder "/repos/rosetta-docker-scripts/entrypoint.sh" "/elrond/"
+COPY --from=builder "/repos/elrond-config-devnet" "/multiversx/config-devnet/"
+COPY --from=builder "/repos/elrond-config-mainnet" "/multiversx/config-mainnet/"
+COPY --from=builder "/repos/rosetta-docker-scripts/entrypoint.sh" "/multiversx/"
 
 EXPOSE 8080
-WORKDIR /elrond
-ENTRYPOINT ["/elrond/entrypoint.sh"]
+WORKDIR /multiversx
+ENTRYPOINT ["/multiversx/entrypoint.sh"]
