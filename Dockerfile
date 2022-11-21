@@ -50,17 +50,20 @@ RUN python3 /repos/rosetta-docker-scripts/adjust_config.py --mode=main --file=/r
 # ===== SECOND STAGE ======
 FROM ubuntu:20.04
 
-COPY --from=builder "/go/rosetta-devnet/cmd/rosetta/rosetta" "/elrond/devnet/"
-COPY --from=builder "/go/rosetta-mainnet/cmd/rosetta/rosetta" "/elrond/mainnet/"
-COPY --from=builder "/go/elrond-go-devnet/cmd/node/node" "/elrond/devnet/"
-COPY --from=builder "/go/elrond-go-mainnet/cmd/node/node" "/elrond/mainnet/"
-COPY --from=builder "/go/elrond-go-devnet/cmd/node/libwasmer_linux_amd64.so" "/elrond/devnet/"
-COPY --from=builder "/go/elrond-go-mainnet/cmd/node/libwasmer_linux_amd64.so" "/elrond/mainnet/"
-COPY --from=builder "/repos/elrond-config-devnet" "/elrond/devnet/config"
-COPY --from=builder "/repos/elrond-config-mainnet" "/elrond/mainnet/config"
-COPY --from=builder "/go/elrond-go-mainnet/cmd/keygenerator/keygenerator" "/elrond/"
-COPY --from=builder "/repos/rosetta-docker-scripts/entrypoint.sh" "/elrond/"
+# "wget" is required by "entrypoint.sh" (download steps)
+RUN apt-get update && apt-get install -y wget
+
+COPY --from=builder "/go/rosetta-devnet/cmd/rosetta/rosetta" "/app/devnet/"
+COPY --from=builder "/go/rosetta-mainnet/cmd/rosetta/rosetta" "/app/mainnet/"
+COPY --from=builder "/go/elrond-go-devnet/cmd/node/node" "/app/devnet/"
+COPY --from=builder "/go/elrond-go-mainnet/cmd/node/node" "/app/mainnet/"
+COPY --from=builder "/go/elrond-go-devnet/cmd/node/libwasmer_linux_amd64.so" "/app/devnet/"
+COPY --from=builder "/go/elrond-go-mainnet/cmd/node/libwasmer_linux_amd64.so" "/app/mainnet/"
+COPY --from=builder "/repos/elrond-config-devnet" "/app/devnet/config"
+COPY --from=builder "/repos/elrond-config-mainnet" "/app/mainnet/config"
+COPY --from=builder "/go/elrond-go-mainnet/cmd/keygenerator/keygenerator" "/app/"
+COPY --from=builder "/repos/rosetta-docker-scripts/entrypoint.sh" "/app/"
 
 EXPOSE 8080
-WORKDIR /elrond
-ENTRYPOINT ["/elrond/entrypoint.sh"]
+WORKDIR /app
+ENTRYPOINT ["/app/entrypoint.sh"]
