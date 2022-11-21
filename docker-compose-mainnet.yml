@@ -14,7 +14,7 @@ services:
     environment:
       - NETWORK=mainnet
       - PROGRAM=node
-    command: start-observer network=mainnet --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=${LOG_LEVEL} --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
+    command: --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=${LOG_LEVEL} --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --validator-key-pem-file=/data/observerKey.pem
     networks:
       elrond-rosetta-mainnet:
         ipv4_address: 10.0.0.10
@@ -29,7 +29,7 @@ services:
     environment:
       - NETWORK=mainnet
       - PROGRAM=rosetta
-    command: start-rosetta --port 8080 --observer-http-url=http://10.0.0.10:8080 --blockchain=${BLOCKCHAIN_NAME} --network-id=1 --network-name=mainnet --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --first-historical-epoch=${FIRST_HISTORICAL_EPOCH} --num-historical-epochs=${NUM_HISTORICAL_EPOCHS} --native-currency=EGLD --logs-folder=/data
+    command: --port 8080 --observer-http-url=http://10.0.0.10:8080 --blockchain=${BLOCKCHAIN_NAME} --network-id=1 --network-name=mainnet --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --first-historical-epoch=${FIRST_HISTORICAL_EPOCH} --num-historical-epochs=${NUM_HISTORICAL_EPOCHS} --native-currency=EGLD --logs-folder=/data
     networks:
       elrond-rosetta-mainnet:
         ipv4_address: 10.0.0.21
@@ -44,7 +44,7 @@ services:
     environment:
       - NETWORK=mainnet
       - PROGRAM=rosetta
-    command: start-rosetta --port 8080 --offline --observer-http-url=http://nowhere.localhost.local --blockchain=${BLOCKCHAIN_NAME} --network-id=1 --network-name=mainnet --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --first-historical-epoch=${FIRST_HISTORICAL_EPOCH} --num-historical-epochs=${NUM_HISTORICAL_EPOCHS} --native-currency=EGLD --logs-folder=/data
+    command: --port 8080 --offline --observer-http-url=http://nowhere.localhost.local --blockchain=${BLOCKCHAIN_NAME} --network-id=1 --network-name=mainnet --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --first-historical-epoch=${FIRST_HISTORICAL_EPOCH} --num-historical-epochs=${NUM_HISTORICAL_EPOCHS} --native-currency=EGLD --logs-folder=/data
     networks:
       elrond-rosetta-mainnet:
         ipv4_address: 10.0.0.22
