@@ -13,8 +13,7 @@ ARG CONFIG_MAINNET_TAG=v1.3.50.0
 WORKDIR /repos
 RUN git clone https://github.com/multiversx/mx-chain-rosetta-docker-scripts.git --branch=${ROSETTA_DOCKER_SCRIPTS_TAG} --single-branch --depth=1
 RUN git clone https://github.com/multiversx/mx-chain-devnet-config --branch=${CONFIG_DEVNET_TAG} --single-branch --depth=1
-# TODO: Adjust URL upon migration
-RUN git clone https://github.com/ElrondNetwork/elrond-config-mainnet --branch=${CONFIG_MAINNET_TAG} --single-branch --depth=1 mx-chain-mainnet-config
+RUN git clone https://github.com/multiversx/mx-chain-mainnet-config --branch=${CONFIG_MAINNET_TAG} --single-branch --depth=1
 
 WORKDIR /go
 RUN git clone https://github.com/multiversx/mx-chain-go --branch=$(cat /repos/mx-chain-devnet-config/binaryVersion | sed 's/tags\///') --single-branch mx-chain-go-devnet
