@@ -7,7 +7,7 @@ ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.3
 # Corresponds to mx-chain-go v1.3.50-hf01
 ARG CONFIG_DEVNET_TAG=D1.3.50.0-hf01
 # Corresponds to mx-chain-go v1.3.50
-ARG CONFIG_MAINNET_TAG=v1.3.50.0
+ARG CONFIG_MAINNET_TAG=v1.3.50.3
 
 # Clone repositories
 WORKDIR /repos
