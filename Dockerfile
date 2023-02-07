@@ -30,12 +30,12 @@ RUN go build
 # Build node (devnet)
 WORKDIR /go/mx-chain-go-devnet/cmd/node
 RUN go build -i -v -ldflags="-X main.appVersion=$(git describe --tags --long --dirty --always)"
-RUN cp /go/pkg/mod/github.com/multiversx/mx-chain-vm-v1_4-go@$(cat /go/mx-chain-go-devnet/go.mod | grep mx-chain-vm-v1_4-go | sed 's/.* //' | tail -n 1)/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-devnet/cmd/node/libwasmer_linux_amd64.so
+RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-devnet/go.mod | grep mx-chain-vm-v | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-devnet/cmd/node/libwasmer_linux_amd64.so
 
 # Build node (mainnet)
 WORKDIR /go/mx-chain-go-mainnet/cmd/node
 RUN go build -i -v -ldflags="-X main.appVersion=$(git describe --tags --long --dirty --always)"
-RUN cp /go/pkg/mod/github.com/multiversx/mx-chain-vm-v1_4-go@$(cat /go/mx-chain-go-mainnet/go.mod | grep mx-chain-vm-v1_4-go | sed 's/.* //' | tail -n 1)/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so
+RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-mainnet/go.mod | grep mx-chain-vm-v | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so
 
 # Adjust configuration files
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml
