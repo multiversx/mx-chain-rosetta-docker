@@ -2,12 +2,10 @@ FROM golang:1.17.6 as builder
 
 ARG ROSETTA_DEVNET_TAG=v0.3.5
 ARG ROSETTA_MAINNET_TAG=v0.3.5
-ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.3
+ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.4
 
-# Corresponds to mx-chain-go v1.3.50-hf01
-ARG CONFIG_DEVNET_TAG=D1.3.50.0-hf01
-# Corresponds to mx-chain-go v1.3.50
-ARG CONFIG_MAINNET_TAG=v1.3.50.3
+ARG CONFIG_DEVNET_TAG=D1.4.8.0
+ARG CONFIG_MAINNET_TAG=v1.4.8.0
 
 # Clone repositories
 WORKDIR /repos
@@ -32,16 +30,12 @@ RUN go build
 # Build node (devnet)
 WORKDIR /go/mx-chain-go-devnet/cmd/node
 RUN go build -i -v -ldflags="-X main.appVersion=$(git describe --tags --long --dirty --always)"
-RUN cp /go/pkg/mod/github.com/!elrond!network/arwen-wasm-vm@$(cat /go/mx-chain-go-devnet/go.mod | grep arwen-wasm-vm | sed 's/.* //' | tail -n 1)/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-devnet/cmd/node/libwasmer_linux_amd64.so
+RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-devnet/go.mod | grep mx-chain-vm-v | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-devnet/cmd/node/libwasmer_linux_amd64.so
 
 # Build node (mainnet)
 WORKDIR /go/mx-chain-go-mainnet/cmd/node
 RUN go build -i -v -ldflags="-X main.appVersion=$(git describe --tags --long --dirty --always)"
-RUN cp /go/pkg/mod/github.com/!elrond!network/arwen-wasm-vm@$(cat /go/mx-chain-go-mainnet/go.mod | grep arwen-wasm-vm | sed 's/.* //' | tail -n 1)/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so
-
-# Build key generator
-WORKDIR /go/mx-chain-go-mainnet/cmd/keygenerator
-RUN go build .
+RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-mainnet/go.mod | grep mx-chain-vm-v | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so
 
 # Adjust configuration files
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml
@@ -64,7 +58,6 @@ COPY --from=builder "/go/mx-chain-go-devnet/cmd/node/libwasmer_linux_amd64.so" "
 COPY --from=builder "/go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so" "/app/mainnet/"
 COPY --from=builder "/repos/mx-chain-devnet-config" "/app/devnet/config"
 COPY --from=builder "/repos/mx-chain-mainnet-config" "/app/mainnet/config"
-COPY --from=builder "/go/mx-chain-go-mainnet/cmd/keygenerator/keygenerator" "/app/"
 COPY --from=builder "/repos/mx-chain-rosetta-docker-scripts/entrypoint.sh" "/app/"
 
 EXPOSE 8080
