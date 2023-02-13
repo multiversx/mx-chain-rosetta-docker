@@ -4,8 +4,7 @@ ARG ROSETTA_DEVNET_TAG=v0.3.5
 ARG ROSETTA_MAINNET_TAG=v0.3.5
 ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.4
 
-# For devnet, we don't have a release tag yet.
-ARG CONFIG_DEVNET_TAG=release-rc-v1.4.0
+ARG CONFIG_DEVNET_TAG=D1.4.8.0
 ARG CONFIG_MAINNET_TAG=v1.4.8.0
 
 # Clone repositories
