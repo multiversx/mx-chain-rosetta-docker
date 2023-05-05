@@ -50,18 +50,20 @@ docker compose --file ./docker-compose-mainnet.yml --env-file ./mainnet.env --pr
 
 ## Inspect logs
 
-For devnet:
+Examples for devnet:
 
 ```
 docker logs multiversx-rosetta-observer-devnet --tail 100 --follow
+docker logs multiversx-rosetta-observer-devnet --tail 100 --follow | grep -e "network connection status" -e "started processing block" -e "isNodeSynchronized"
 docker logs multiversx-rosetta-online-devnet --tail 100 --follow
 docker logs multiversx-rosetta-offline-devnet --tail 100 --follow
 ```
 
-For mainnet:
+Examples for mainnet:
 
 ```
 docker logs multiversx-rosetta-observer-mainnet --tail 100 --follow
+docker logs multiversx-rosetta-observer-mainnet --tail 100 --follow | grep -e "network connection status" -e "started processing block" -e "isNodeSynchronized"
 docker logs multiversx-rosetta-online-mainnet --tail 100 --follow
 docker logs multiversx-rosetta-offline-mainnet --tail 100 --follow
 ```
