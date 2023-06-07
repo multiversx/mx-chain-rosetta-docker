@@ -4,7 +4,7 @@ ARG ROSETTA_DEVNET_TAG=v0.4.1
 ARG ROSETTA_MAINNET_TAG=v0.3.5
 ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.6
 
-ARG CONFIG_DEVNET_TAG=D1.4.17.0
+ARG CONFIG_DEVNET_TAG=D1.5.7.1
 ARG CONFIG_MAINNET_TAG=v1.4.17.0
 
 # Install Python dependencies, necessary for "adjust_binary.py" and "adjust_observer_src.py"
