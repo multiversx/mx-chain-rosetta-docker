@@ -51,7 +51,7 @@ RUN go build -v -ldflags="-X main.appVersion=$(git --git-dir /repos/mx-chain-mai
 RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-mainnet/go.mod | grep mx-chain-vm-v | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so
 
 # ===== SECOND STAGE ======
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 
 # "wget" is required by "entrypoint.sh" (download steps)
 RUN apt-get update && apt-get install -y wget
