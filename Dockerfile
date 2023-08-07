@@ -1,14 +1,14 @@
-FROM golang:1.17.6 as builder
+FROM golang:1.20.5 as builder
 
 ARG ROSETTA_DEVNET_TAG=v0.4.1
 ARG ROSETTA_MAINNET_TAG=v0.3.5
 ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.6
 
-ARG CONFIG_DEVNET_TAG=D1.5.8.0
-ARG CONFIG_MAINNET_TAG=v1.5.8.0
+ARG CONFIG_DEVNET_TAG=D1.5.12.0
+ARG CONFIG_MAINNET_TAG=v1.5.12.0
 
 # Install Python dependencies, necessary for "adjust_binary.py" and "adjust_observer_src.py"
-RUN apt-get update && apt-get -y install python3-pip && pip3 install toml
+RUN apt-get update && apt-get -y install python3-pip && pip3 install toml --break-system-packages
 
 # Clone repositories
 WORKDIR /repos
@@ -42,12 +42,12 @@ RUN python3 /repos/mx-chain-rosetta-docker-scripts/adjust_config.py --mode=main 
 
 # Build node (devnet)
 WORKDIR /go/mx-chain-go-devnet/cmd/node
-RUN go build -i -v -ldflags="-X main.appVersion=$(git --git-dir /repos/mx-chain-devnet-config/.git describe --tags --long --dirty --always)"
+RUN go build -v -ldflags="-X main.appVersion=$(git --git-dir /repos/mx-chain-devnet-config/.git describe --tags --long --dirty --always)"
 RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-devnet/go.mod | grep mx-chain-vm-v | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-devnet/cmd/node/libwasmer_linux_amd64.so
 
 # Build node (mainnet)
 WORKDIR /go/mx-chain-go-mainnet/cmd/node
-RUN go build -i -v -ldflags="-X main.appVersion=$(git --git-dir /repos/mx-chain-mainnet-config/.git describe --tags --long --dirty --always)"
+RUN go build -v -ldflags="-X main.appVersion=$(git --git-dir /repos/mx-chain-mainnet-config/.git describe --tags --long --dirty --always)"
 RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-mainnet/go.mod | grep mx-chain-vm-v | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so
 
 # ===== SECOND STAGE ======
