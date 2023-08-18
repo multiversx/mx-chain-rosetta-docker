@@ -1,11 +1,11 @@
-FROM golang:1.20.5 as builder
+FROM golang:1.20.7 as builder
 
-ARG ROSETTA_DEVNET_TAG=v0.4.2
-ARG ROSETTA_MAINNET_TAG=v0.4.2
+ARG ROSETTA_DEVNET_TAG=v0.4.3
+ARG ROSETTA_MAINNET_TAG=v0.4.3
 ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.6
 
-ARG CONFIG_DEVNET_TAG=D1.5.12.0
-ARG CONFIG_MAINNET_TAG=v1.5.12.0
+ARG CONFIG_DEVNET_TAG=D1.5.13.0
+ARG CONFIG_MAINNET_TAG=v1.5.13.0
 
 # Install Python dependencies, necessary for "adjust_binary.py" and "adjust_observer_src.py"
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml --break-system-packages
