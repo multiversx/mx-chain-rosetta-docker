@@ -22,6 +22,7 @@ services:
       - DOWNLOAD_EPOCH_FIRST=${DOWNLOAD_EPOCH_FIRST}
       - DOWNLOAD_EPOCH_LAST=${DOWNLOAD_EPOCH_LAST}
       - DOWNLOAD_CHAIN_ID=D
+      - IS_GENESIS=${IS_GENESIS}
     command: --destination-shard-as-observer=${OBSERVER_ACTUAL_SHARD} --log-save --log-level=${LOG_LEVEL} --log-logger-name --rest-api-interface=0.0.0.0:8080 --working-directory=/data --no-key --display-name=${OBSERVER_DISPLAY_NAME}
     networks:
       multiversx-rosetta-devnet:
