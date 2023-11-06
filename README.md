@@ -31,7 +31,7 @@ After running the command, you may need to log out from the user session and log
 ## Build the Docker image
 
 ```
-docker image build --no-cache . -t multiversx-rosetta:latest -f ./Dockerfile
+docker image build --network=host --no-cache . -t multiversx-rosetta:latest -f ./Dockerfile
 ```
 
 ## Run the containers
