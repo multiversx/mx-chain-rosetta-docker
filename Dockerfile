@@ -35,7 +35,7 @@ RUN python3 /repos/mx-chain-rosetta-docker-scripts/adjust_observer_src.py --src=
     python3 /repos/mx-chain-rosetta-docker-scripts/adjust_observer_src.py --src=/go/mx-chain-go-mainnet --max-headers-to-request-in-advance=150
 
 # Adjust node configuration files
-RUN python3 /repos/mx-chain-rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/mx-chain-devnet-config/config.toml --api-simultaneous-requests=16384 --no-snapshots --sync-process-time-milliseconds=5000 && \
+RUN python3 /repos/mx-chain-rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/mx-chain-devnet-config/config.toml --api-simultaneous-requests=16384 --sync-process-time-milliseconds=5000 && \
     python3 /repos/mx-chain-rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/mx-chain-devnet-config/prefs.toml && \
     python3 /repos/mx-chain-rosetta-docker-scripts/adjust_config.py --mode=main --file=/repos/mx-chain-mainnet-config/config.toml --api-simultaneous-requests=16384 && \
     python3 /repos/mx-chain-rosetta-docker-scripts/adjust_config.py --mode=prefs --file=/repos/mx-chain-mainnet-config/prefs.toml
