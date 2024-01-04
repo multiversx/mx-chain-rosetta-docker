@@ -4,8 +4,8 @@ ARG ROSETTA_DEVNET_TAG=v0.4.4
 ARG ROSETTA_MAINNET_TAG=v0.4.3
 ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.7
 
-ARG CONFIG_DEVNET_TAG=D1.6.6.1
-ARG CONFIG_MAINNET_TAG=v1.5.14.0
+ARG CONFIG_DEVNET_TAG=D1.6.7.0
+ARG CONFIG_MAINNET_TAG=v1.6.7.0
 
 # Install Python dependencies, necessary for "adjust_binary.py" and "adjust_observer_src.py"
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml --break-system-packages
@@ -50,7 +50,7 @@ RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-devnet/go.mod | g
 WORKDIR /go/mx-chain-go-mainnet/cmd/node
 RUN go build -v -ldflags="-X main.appVersion=$(git --git-dir /repos/mx-chain-mainnet-config/.git describe --tags --long --dirty --always)"
 RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-mainnet/go.mod | grep mx-chain-vm-v | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer/libwasmer_linux_amd64.so /go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so
-# RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-mainnet/go.mod | grep mx-chain-vm-go | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer2/libvmexeccapi.so /go/mx-chain-go-mainnet/cmd/node/libvmexeccapi.so
+RUN cp /go/pkg/mod/github.com/multiversx/$(cat /go/mx-chain-go-mainnet/go.mod | grep mx-chain-vm-go | sort -n | tail -n -1| awk -F '/' '{print$3}'| sed 's/ /@/g')/wasmer2/libvmexeccapi.so /go/mx-chain-go-mainnet/cmd/node/libvmexeccapi.so
 
 # ===== SECOND STAGE ======
 FROM ubuntu:22.04
@@ -65,7 +65,7 @@ COPY --from=builder "/go/mx-chain-go-mainnet/cmd/node/node" "/app/mainnet/"
 COPY --from=builder "/go/mx-chain-go-devnet/cmd/node/libwasmer_linux_amd64.so" "/app/devnet/"
 COPY --from=builder "/go/mx-chain-go-devnet/cmd/node/libvmexeccapi.so" "/app/devnet/"
 COPY --from=builder "/go/mx-chain-go-mainnet/cmd/node/libwasmer_linux_amd64.so" "/app/mainnet/"
-# COPY --from=builder "/go/mx-chain-go-mainnet/cmd/node/libvmexeccapi.so" "/app/mainnet/"
+COPY --from=builder "/go/mx-chain-go-mainnet/cmd/node/libvmexeccapi.so" "/app/mainnet/"
 COPY --from=builder "/repos/mx-chain-devnet-config" "/app/devnet/config"
 COPY --from=builder "/repos/mx-chain-mainnet-config" "/app/mainnet/config"
 COPY --from=builder "/repos/mx-chain-rosetta-docker-scripts/entrypoint.sh" "/app/"
