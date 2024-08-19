@@ -1,4 +1,4 @@
-FROM golang:1.20.7 as builder
+FROM golang:1.20.7 AS builder
 
 ARG ROSETTA_DEVNET_TAG=v0.4.4
 ARG ROSETTA_MAINNET_TAG=v0.4.4
