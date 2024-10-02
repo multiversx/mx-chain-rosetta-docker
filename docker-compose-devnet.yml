@@ -38,7 +38,7 @@ services:
     environment:
       - NETWORK=devnet
       - PROGRAM=rosetta
-    command: --port 8080 --observer-http-url=http://11.0.0.10:8080 --blockchain=${BLOCKCHAIN_NAME} --network-id=D --network-name=devnet --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --first-historical-epoch=${FIRST_HISTORICAL_EPOCH} --num-historical-epochs=${NUM_HISTORICAL_EPOCHS} --native-currency=EGLD --logs-folder=/data
+    command: --port 8080 --observer-http-url=http://11.0.0.10:8080 --blockchain=${BLOCKCHAIN_NAME} --network-id=D --network-name=devnet --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --first-historical-epoch=${FIRST_HISTORICAL_EPOCH} --num-historical-epochs=${NUM_HISTORICAL_EPOCHS} --native-currency=EGLD --logs-folder=/data --activation-epoch-sirius=${ACTIVATION_EPOCH_SIRIUS} --activation-epoch-spica=${ACTIVATION_EPOCH_SPICA}
     networks:
       multiversx-rosetta-devnet:
         ipv4_address: 11.0.0.21
@@ -53,7 +53,7 @@ services:
     environment:
       - NETWORK=devnet
       - PROGRAM=rosetta
-    command: --port 8080 --offline --observer-http-url=http://nowhere.localhost.local --blockchain=${BLOCKCHAIN_NAME} --network-id=D --network-name=devnet --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --first-historical-epoch=${FIRST_HISTORICAL_EPOCH} --num-historical-epochs=${NUM_HISTORICAL_EPOCHS} --native-currency=EGLD --logs-folder=/data
+    command: --port 8080 --offline --observer-http-url=http://nowhere.localhost.local --blockchain=${BLOCKCHAIN_NAME} --network-id=D --network-name=devnet --num-shards=3 --observer-actual-shard=${OBSERVER_ACTUAL_SHARD} --observer-projected-shard=${OBSERVER_PROJECTED_SHARD} --genesis-block=${GENESIS_BLOCK} --genesis-timestamp=${GENESIS_TIMESTAMP} --first-historical-epoch=${FIRST_HISTORICAL_EPOCH} --num-historical-epochs=${NUM_HISTORICAL_EPOCHS} --native-currency=EGLD --logs-folder=/data --activation-epoch-sirius=${ACTIVATION_EPOCH_SIRIUS} --activation-epoch-spica=${ACTIVATION_EPOCH_SPICA}
     networks:
       multiversx-rosetta-devnet:
         ipv4_address: 11.0.0.22
