@@ -5,7 +5,7 @@ ARG ROSETTA_MAINNET_TAG=v0.6.1
 ARG ROSETTA_DOCKER_SCRIPTS_TAG=v0.2.7
 
 ARG CONFIG_DEVNET_TAG=D1.8.9.0
-ARG CONFIG_MAINNET_TAG=v1.8.9.0
+ARG CONFIG_MAINNET_TAG=v1.8.9.1
 
 # Install Python dependencies, necessary for "adjust_binary.py" and "adjust_observer_src.py"
 RUN apt-get update && apt-get -y install python3-pip && pip3 install toml --break-system-packages
